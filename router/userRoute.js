@@ -203,7 +203,7 @@ router.get ("/profile/view", auth.verifyUser, function(req, res){
 })
 
 //to search user by username
-router.post("/search/user", auth.verifyUser, async(req, res)=>{
+router.get("/search/user", auth.verifyUser, async(req, res)=>{
     const keyUsername = req.body.username
     ? {username: { $regex: req.body.username, $options: "i" }}
     :{};

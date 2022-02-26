@@ -9,11 +9,9 @@ const Like = require("../models/likeModel");
 
 //to insert
 router.post("/post/insert", auth.verifyUser, upload.single('postimage'), function(req,res){
-
+    console.log(req.body);
     if(req.file==undefined){
-
         return res.json({msg : "invaliddddddd!!"})
-
     }
 
     const caption = req.body.caption;
@@ -85,6 +83,7 @@ router.put("/post/update/:pid",auth.verifyUser, function(req,res){
 
 router.get("/getall/post", auth.verifyUser, async(req,res)=>{
     const posts = await Post.find({user_id : req.userInfo._id})
+    .populate("user_id", "username profile_pic")
     .sort({createdAt :-1});
     res.json(posts);
 })
